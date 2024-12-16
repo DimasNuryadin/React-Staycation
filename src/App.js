@@ -1,11 +1,16 @@
 import "assets/scss/style.scss"
-import Button from "elements/Button";
+import LandingPage from "pages/LandingPage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 
 function App() {
   return (
     <div className="App">
-      Hello world!
-      <Button />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
