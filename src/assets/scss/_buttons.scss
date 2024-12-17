@@ -16,7 +16,8 @@
   user-select: none;
   background-color: transparent;
   border: $btn-border-width solid transparent;
-  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  min-height: 50px;
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, 4px);
   @include transition($btn-transition);
 
   @include hover() {
@@ -44,6 +45,10 @@
     &:focus {
       @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
     }
+  }
+
+  &.btn-shadow {
+    box-shadow: 0px 8px 15px rgba($primary, 0.3);
   }
 }
 
@@ -124,7 +129,7 @@ fieldset:disabled a.btn {
   width: 100%;
 
   // Vertically space out multiple block buttons
-  + .btn-block {
+  +.btn-block {
     margin-top: $btn-block-spacing-y;
   }
 }
