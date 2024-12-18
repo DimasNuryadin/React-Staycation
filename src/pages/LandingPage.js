@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import Categories from "parts/Categories"
 import Testimony from "parts/Testimony"
 import Footer from "parts/Footer"
+import InputNumber from "elements/Form/InputNumber"
 
 export default class LandingPage extends Component {
   // Akan dijalankan pertama
@@ -13,6 +14,15 @@ export default class LandingPage extends Component {
     super(props);
     this.refMostPicked = React.createRef();
   }
+
+  state = {
+    value: "1"
+  }
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
   render() {
     return (
       <>
@@ -22,6 +32,14 @@ export default class LandingPage extends Component {
         <Categories data={landingPage.categories} />
         <Testimony data={landingPage.testimonial} />
         <Footer />
+        <InputNumber
+          max={30}
+          suffix=" night"
+          onChange={this.handleChange}
+          isSuffixPlural
+          name="value"
+          value={this.state.value}
+        />
       </>
     )
   }
