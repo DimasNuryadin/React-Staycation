@@ -8,12 +8,12 @@ MostPicked.propTypes = {
 
 export default function MostPicked(props) {
   return (
-    <section className="container" ref={props.refMostPicked}>
+    <section className="container xyz-in" xyz="fade down-50%" ref={props.refMostPicked}>
       <h4 className="mb-3">Most Picked</h4>
-      <div className="container-grid">
+      <div className="container-grid" xyz="fade small stagger">
         {props.data.map((item, index) => {
           return (
-            <div className={`item column-4 ${index === 0 ? " row-2" : " row-1"}`} key={index + 1}>
+            <div className={`item column-4 xyz-in ${index === 0 ? " row-2" : " row-1"}`} key={index + 1}>
               <div className="card card-featured">
                 <div className="tag">
                   ${item.price}{" "}

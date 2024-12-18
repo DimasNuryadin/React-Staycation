@@ -17,7 +17,7 @@ export default function Hero(props) {
   }
 
   return (
-    <section className="container pt-4">
+    <section className="container pt-4 xyz-in" xyz="fade down-50%">
       <div className="row align-items-center">
         <div className="col-6 pr-5" style={{ width: 530 }}>
           <h1 className="font-weight-bold line-height-1 mb-3" style={{ lineHeight: '170%' }}>
