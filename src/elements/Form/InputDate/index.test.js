@@ -7,7 +7,7 @@ class TestInput extends React.Component {
   state = {
     value: {
       startDate: new Date(),
-      endDate: newDate(),
+      endDate: new Date(),
       key: "selection"
     }
   };
@@ -53,10 +53,9 @@ test('Should have wrapper with className .form-control', () => {
 test('Should show date picker when click input field', () => {
   const { container, input } = setup();
 
-  screen.debug()
+  // screen.debug()
   fireEvent.click(input, { button: 1 });
   const datePickerWrapper = container.querySelector(`.date-range-wrapper`)
-
 
   expect(datePickerWrapper).toBeInTheDocument();
 })
