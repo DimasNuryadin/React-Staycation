@@ -5,7 +5,8 @@ import propTypes from 'prop-types';
 InputText.defaultProps = {
   type: "text",
   pattern: "",
-  placeholder: "Please type here..."
+  placeholder: "Please type here...",
+  errorResponse: "Please match the requested format.",
 };
 
 InputText.propTypes = {
@@ -36,6 +37,7 @@ export default function InputText(props) {
         value: event.target.value,
       },
     };
+
     if (type === "email") {
       if (!pattern.test(event.target.value)) {
         setHasError(errorResponse);
@@ -44,11 +46,9 @@ export default function InputText(props) {
       }
     }
     if (type === "tel") {
-      if (event.target.validity.valid) {
-        onChange(target);
-      }
+      if (event.target.validity.valid) props.onChange(target);
     } else {
-      onChange(target);
+      props.onChange(target);
     }
   }
 
