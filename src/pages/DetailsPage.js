@@ -3,20 +3,31 @@ import PageDetailTitle from "parts/PageDetailTitle";
 import React, { Component } from 'react'
 import FeaturedImage from "parts/FeaturedImage";
 import PageDetailDescription from "parts/PageDetailDescription";
-import ItemDetails from 'json/itemDetails.json'
 import BookingForm from "parts/BookingForm";
-import Categories from "parts/Categories";
 import Testimony from "parts/Testimony";
 import Footer from "parts/Footer";
+import Activities from "parts/Activities";
+import { withRouter } from "utils/withRouter";
 
-export default class DetailsPage extends Component {
+// Redux
+import { connect } from "react-redux";
+import { checkoutBooking } from "store/actions/checkout";
+import { fetchPage } from "store/actions/page";
+
+class DetailsPage extends Component {
 
   componentDidMount() {
     window.title = "Details Page"
     window.scrollTo(0, 0)
+
+    if (!this.props.page[this.props.params.id])
+      this.props.fetchPage(`${process.env.REACT_APP_HOST}/api/v1/member/detail-page/${this.props.params.id}`, 'detailsPage')
   }
 
   render() {
+    const { page } = this.props;
+    if (!page.detailsPage) return null
+
     const breadcrumb = [
       { pageTitle: "Home", pageHref: "" },
       { pageTitle: "House Details", pageHref: "" }
@@ -26,23 +37,31 @@ export default class DetailsPage extends Component {
         <Header {...this.props} />
         <PageDetailTitle
           breadcrumb={breadcrumb}
-          data={ItemDetails}
+          data={page.detailsPage}
         />
-        <FeaturedImage data={ItemDetails.imageUrls} />
+        <FeaturedImage data={page.detailsPage.imageId} />
         <section className="container">
           <div className="row">
             <div className="col-7 pr-5">
-              <PageDetailDescription data={ItemDetails} />
+              <PageDetailDescription data={page.detailsPage} />
             </div>
             <div className="col-5">
-              <BookingForm itemDetails={ItemDetails} />
+              <BookingForm itemDetails={page.detailsPage} startBooking={this.props.checkoutBooking} />
             </div>
           </div>
         </section>
-        <Categories data={ItemDetails.categories} />
-        <Testimony data={ItemDetails.testimonial} />
+        <Activities data={page.detailsPage.activityId} />
+        <Testimony data={page.detailsPage.testimonial} />
         <Footer />
       </>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  page: state.page,
+})
+
+export default withRouter(connect(mapStateToProps, { checkoutBooking, fetchPage })(
+  DetailsPage
+))

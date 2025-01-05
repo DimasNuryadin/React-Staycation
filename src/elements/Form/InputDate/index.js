@@ -34,13 +34,13 @@ export default function InputDate(props) {
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside)
     return () => {
-      document.addEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("mousedown", handleClickOutside)
     }
-  })
+  }, [])
 
   const refDate = useRef(null);
   const handleClickOutside = event => {
-    if (refDate && !refDate.current.contains(event.target)) {
+    if (refDate.current && !refDate.current.contains(event.target)) {
       setIsShowed(false)
     }
   }

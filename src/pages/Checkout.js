@@ -6,14 +6,13 @@ import Controller from "elements/Stepper/Controller"
 import MainContent from "elements/Stepper/MainContent"
 import Meta from "elements/Stepper/Meta"
 import Numbering from "elements/Stepper/Numbering"
-
 import BookingInformation from "parts/Checkout/BookingInformation"
 import Completed from "parts/Checkout/Completed"
 import Payment from "parts/Checkout/Payment"
+import { connect } from "react-redux"
+import { withRouter } from "utils/withRouter"
 
-import ItemDetails from "json/itemDetails.json";
-
-export default class Checkout extends Component {
+class Checkout extends Component {
   state = {
     data: {
       firstName: "",
@@ -41,8 +40,26 @@ export default class Checkout extends Component {
 
   render() {
     const { data } = this.state;
-    const checkout = {
-      duration: 3,
+    const { checkout, page } = this.props;
+
+    if (!checkout) {
+      return (
+        <div>
+          <Header isCentered />
+          <div className="container">
+            <div className="row align-items-center justify-content-center text-center" style={{ height: "100vh" }}>
+              <div className="col-4">
+                Pilih kamar dulu
+                <div>
+                  <Button type="button" className="btn mt-5" isLight onClick={() => this.props.navigate(-1)}>
+                    Back to Home
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     }
 
     const steps = {
@@ -53,7 +70,7 @@ export default class Checkout extends Component {
           <BookingInformation
             data={data}
             checkout={checkout}
-            ItemDetails={ItemDetails}
+            ItemDetails={page.detailsPage}
             onChange={this.onChange}
           />
         ),
@@ -61,7 +78,7 @@ export default class Checkout extends Component {
       payment: {
         title: "Payment",
         description: "Kindly follow the instruction below",
-        content: <Payment data={data} checkout={checkout} ItemDetails={ItemDetails} onChange={this.onChange} />,
+        content: <Payment data={data} checkout={checkout} ItemDetails={page.detailsPage} onChange={this.onChange} />,
       },
       completed: {
         title: "Yeay! Completed",
@@ -128,3 +145,10 @@ export default class Checkout extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  checkout: state.checkout,
+  page: state.page
+})
+
+export default withRouter(connect(mapStateToProps)(Checkout))
