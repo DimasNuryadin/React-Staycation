@@ -1,6 +1,6 @@
 # Staycation
 A browser-based hotel booking application.
-This project is the frontend of the Top Up Game in the BuildWithAngga course class, for the backend, see the following link:
+This project is the frontend of the Staycation in the BuildWithAngga course class, for the backend, see the following link:
 [Express-Staycation](https://github.com/DimasNuryadin/Express-Staycation)
 
 ## Getting Started
